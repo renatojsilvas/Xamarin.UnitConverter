@@ -1,0 +1,11 @@
+﻿namespace UnitConverter
+{
+    public class Celsius : Quantity
+    {
+        public Celsius()
+        {
+            Point1 = 0.0;
+            Point2 = 100.0;
+        }
+    }
+}
