@@ -5,19 +5,19 @@ namespace UnitConverter
 {
     public class UnitsConverter
     {
-        private readonly Quantity sourceQuantity;
-        private readonly Quantity destinationQuantity;
+        private readonly Unit sourceUnit;
+        private readonly Unit destinationUnit;
 
-        public UnitsConverter(Quantity sourceQuantity, Quantity destinationQuantity)
+        public UnitsConverter(Unit sourceUnit, Unit destinationUnit)
         {
-            this.sourceQuantity = sourceQuantity;
-            this.destinationQuantity = destinationQuantity;
+            this.sourceUnit = sourceUnit;
+            this.destinationUnit = destinationUnit;
         }
 
         public double Convert(double value)
         {
-            Point point1 = new Point(sourceQuantity.Point1, destinationQuantity.Point1);
-            Point point2 = new Point(sourceQuantity.Point2, destinationQuantity.Point2);
+            Point point1 = new Point(sourceUnit.Point1, destinationUnit.Point1);
+            Point point2 = new Point(sourceUnit.Point2, destinationUnit.Point2);
             LinearFunction linearFunction = new LinearFunction(point1, point2);
             return linearFunction.Evaluate(value);
         }

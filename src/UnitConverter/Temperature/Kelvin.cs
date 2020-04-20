@@ -1,6 +1,6 @@
 ﻿namespace UnitConverter
 {
-    public class Kelvin : Quantity
+    public class Kelvin : Unit
     {
         public Kelvin()
         {

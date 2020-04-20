@@ -1,6 +1,6 @@
 ﻿namespace UnitConverter
 {
-    public class Celsius : Quantity
+    public class Celsius : Unit
     {
         public Celsius()
         {

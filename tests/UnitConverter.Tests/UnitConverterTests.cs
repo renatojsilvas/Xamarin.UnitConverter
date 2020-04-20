@@ -11,9 +11,9 @@ namespace UnitConverter.Tests
         public void Convert_Temperature_Celsius_To_Kelvin(double celsiusValue, double kelvinValue)
         {
             //Arrange
-            Quantity sourceQuantity = new Celsius();
-            Quantity destinationQuantity = new Kelvin();
-            UnitsConverter unitConverter = new UnitsConverter(sourceQuantity, destinationQuantity);
+            Unit sourceUnit = new Celsius();
+            Unit destinationUnit = new Kelvin();
+            UnitsConverter unitConverter = new UnitsConverter(sourceUnit, destinationUnit);
 
             //Act
             double result = unitConverter.Convert(celsiusValue);
