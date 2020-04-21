@@ -42,8 +42,9 @@ namespace UnitConverter.Tests
             List<string> quantities = sut.LoadQuantities();
 
             //Assert
-            quantities.Should().HaveCount(1);
+            quantities.Should().HaveCount(2);
             quantities.Should().Contain("Temperature");
+            quantities.Should().Contain("Pressure");
         }
 
         [Fact]
@@ -62,6 +63,21 @@ namespace UnitConverter.Tests
             units.Should().Contain(u => u.FullName == "Fahrenheit");
             units.Should().Contain(u => u.FullName == "Kelvin");
             units.Should().Contain(u => u.FullName == "Rankine");
+        }
+
+        [Fact]
+        public void Load_pressure_units()
+        {
+            //Arrange
+            UnitRepository sut = new UnitRepository();
+
+            //Act
+            List<Unit> units = sut.LoadUnitsByQuantity("Pressure");
+
+            //Assert
+            units.Should().HaveCount(1);
+            units.Should().AllBeAssignableTo<Unit>();
+            units.Should().Contain(u => u.FullName == "Pascal");
         }
     }
 }

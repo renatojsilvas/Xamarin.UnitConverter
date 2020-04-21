@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethodsTests.cs" />
     <Compile Include="RepositoryTests.cs" />
     <Compile Include="TemperatureUnitsTests.cs" />
     <Compile Include="UnitConverterTests.cs" />

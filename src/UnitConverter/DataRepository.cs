@@ -19,7 +19,10 @@ namespace UnitConverter
                 new Celsius(),
                 new Fahrenheit(),
                 new Kelvin(),
-                new Rankine()
+                new Rankine(),
+
+                //Pressure
+                new Pascal(),
             };
         }        
 

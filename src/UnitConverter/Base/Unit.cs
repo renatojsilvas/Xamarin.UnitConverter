@@ -7,5 +7,10 @@
         public string FullName { get; protected set; }
         public string Symbol { get; protected set; }
         public string Quantity { get; protected set; }
+
+        public override bool Equals(object obj)
+        {
+            return FullName == ((Unit)obj).FullName;
+        }
     }
 }
