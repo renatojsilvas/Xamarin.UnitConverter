@@ -69,6 +69,7 @@
     <Compile Include="TemperatureUnitsTests.cs" />
     <Compile Include="UnitConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValueTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
