@@ -1,20 +1,22 @@
 ﻿using Math.Functions;
 using Math.Geometry;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("UnitConverter.Tests")]
 namespace UnitConverter
 {
-    public class UnitsConverter
+    internal class UnitsConverter
     {
         private readonly Unit sourceUnit;
         private readonly Unit destinationUnit;
 
-        public UnitsConverter(Unit sourceUnit, Unit destinationUnit)
+        internal UnitsConverter(Unit sourceUnit, Unit destinationUnit)
         {
             this.sourceUnit = sourceUnit;
             this.destinationUnit = destinationUnit;
         }
 
-        public double Convert(double value)
+        internal double Convert(double value)
         {
             Point point1 = new Point(sourceUnit.Point1, destinationUnit.Point1);
             Point point2 = new Point(sourceUnit.Point2, destinationUnit.Point2);

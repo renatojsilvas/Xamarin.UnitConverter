@@ -1,8 +1,8 @@
 ﻿namespace UnitConverter
 {
-    public class Celsius : Unit
+    internal class Celsius : Unit
     {
-        public Celsius()
+        internal Celsius()
         {
             Point1 = 0.0;
             Point2 = 100.0;

@@ -4,19 +4,19 @@ using System.Text;
 
 namespace UnitConverter
 {
-    public class UnitRepository
+    internal class UnitRepository
     {
-        public List<Unit> LoadUnitsByQuantity(string quantity)
+        internal List<Unit> LoadUnitsByQuantity(string quantity)
         {
             return DataRepository.GetUnitsByQuantity(quantity);
         }
 
-        public Unit LoadUnitByFullName(string v)
+        internal Unit LoadUnitByFullName(string v)
         {
             return DataRepository.GetUnitByFullName(v);
         }
 
-        public Unit LoadUnitBySymbol(string v)
+        internal Unit LoadUnitBySymbol(string v)
         {
             return DataRepository.GetUnitBySymbol(v);
         }

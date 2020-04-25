@@ -1,8 +1,8 @@
 ﻿namespace UnitConverter
 {
-    public class Kelvin : Unit
+    internal class Kelvin : Unit
     {
-        public Kelvin()
+        internal Kelvin()
         {
             Point1 = 273.15;
             Point2 = 373.15;

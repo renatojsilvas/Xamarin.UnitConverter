@@ -4,9 +4,9 @@ using System.Text;
 
 namespace UnitConverter
 {
-    public static class ExtensionMethods
+    internal static class ExtensionMethods
     {
-        public static bool BelongsToSameQuantityOf(this Unit unit, Unit otherUnit)
+        internal static bool BelongsToSameQuantityOf(this Unit unit, Unit otherUnit)
         {
             return unit.Quantity == otherUnit.Quantity;
         }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace UnitConverter
 {
-    public class Rankine : Unit
+    internal class Rankine : Unit
     {
-        public Rankine()
+        internal Rankine()
         {
             Point1 = 419.67;
             Point2 = 671.67;

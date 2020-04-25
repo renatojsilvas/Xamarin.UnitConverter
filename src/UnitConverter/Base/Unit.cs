@@ -1,12 +1,12 @@
 ﻿namespace UnitConverter
 {
-    public abstract class Unit
+    internal abstract class Unit
     {
-        public double Point1 { get; protected set; }
-        public double Point2 { get; protected set; }
-        public string FullName { get; protected set; }
-        public string Symbol { get; protected set; }
-        public string Quantity { get; protected set; }
+        internal double Point1 { get; set; }
+        internal double Point2 { get; set; }
+        internal string FullName { get; set; }
+        internal string Symbol { get; set; }
+        internal string Quantity { get; set; }
 
         public override bool Equals(object obj)
         {

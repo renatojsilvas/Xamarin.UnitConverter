@@ -4,9 +4,9 @@ using System.Text;
 
 namespace UnitConverter
 {
-    public class Pascal : Unit
+    internal class Pascal : Unit
     {
-        public Pascal()
+        internal Pascal()
         {
             Point1 = 0.0;
             Point2 = 1.0;

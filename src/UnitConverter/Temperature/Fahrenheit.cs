@@ -4,9 +4,9 @@ using System.Text;
 
 namespace UnitConverter
 {
-    public class Fahrenheit : Unit
+    internal class Fahrenheit : Unit
     {
-        public Fahrenheit()
+        internal Fahrenheit()
         {
             Point1 = 32.0;
             Point2 = 212.0;

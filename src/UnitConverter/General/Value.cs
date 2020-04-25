@@ -7,12 +7,6 @@ namespace UnitConverter
 {
     public class Value
     {
-        public Value(double amount, Unit unit)
-        {
-            Amount = amount;
-            Unit = unit;
-        }
-
         public Value(double amount) 
             : this(amount, string.Empty)
         {
@@ -27,7 +21,7 @@ namespace UnitConverter
         }
 
         public double Amount { get; }
-        public Unit Unit { get; }
+        private Unit Unit { get; }
 
         public string ToString(int significantFigures)
         {
