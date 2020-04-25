@@ -7,14 +7,13 @@ namespace UnitConverter
 {
     public class UnitConverterService
     {
-        public Task<ServiceResult> ConvertUnit(double value, string source, string destination)
+        public Task<(bool Success, string Message, Value Value)> ConvertUnit(double value, string source, string destination)
         {
             Unit sourceUnit = SelectUnit(source);
             Unit destinationUnit = SelectUnit(destination);
             UnitsConverter unitsConverter = new UnitsConverter(sourceUnit, destinationUnit);
             double convertedValue = unitsConverter.Convert(value);
-            ServiceResult result = new ServiceResult(true, string.Empty, new Value(convertedValue, destinationUnit.Symbol));
-            return Task.FromResult(result);
+            return Task.FromResult((true, string.Empty, new Value(convertedValue, destinationUnit.Symbol)));
         }
 
         private Unit SelectUnit(string unit)

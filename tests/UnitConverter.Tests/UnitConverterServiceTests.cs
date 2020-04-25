@@ -17,7 +17,7 @@ namespace UnitConverter.Tests
             UnitConverterService sut = new UnitConverterService();
 
             //Act
-            ServiceResult result = await sut.ConvertUnit(0, "Celsius", "Fahrenheit");
+            var result = await sut.ConvertUnit(0, "Celsius", "Fahrenheit");
 
             //Assert
             result.Success.Should().BeTrue();
@@ -32,7 +32,7 @@ namespace UnitConverter.Tests
             UnitConverterService sut = new UnitConverterService();
 
             //Act
-            ServiceResult result = await sut.ConvertUnit(0, "°C", "°F");
+            var result = await sut.ConvertUnit(0, "°C", "°F");
 
             //Assert
             result.Success.Should().BeTrue();
