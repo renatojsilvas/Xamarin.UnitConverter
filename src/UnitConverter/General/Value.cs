@@ -24,12 +24,12 @@ namespace UnitConverter
             LoadArguments(amount, symbol);
         }
 
-        private void LoadArguments(double amount, string symbol)
+        private void LoadArguments(double amount, string symbolOrFullName)
         {
             Amount = amount;
-            Unit = DataRepository.GetUnitByFullName(symbol);
+            Unit = DataRepository.GetUnitByFullName(symbolOrFullName);
             if (Unit != null) return;
-            Unit = DataRepository.GetUnitBySymbol(symbol);
+            Unit = DataRepository.GetUnitBySymbol(symbolOrFullName);
         }
 
         public double Amount { get; private set; }
