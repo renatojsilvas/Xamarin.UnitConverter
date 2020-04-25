@@ -8,7 +8,7 @@ using FluentAssertions;
 
 namespace UnitConverter.Tests
 {
-    public class ServicesTests
+    public class UnitConverterServiceTests
     {
         [Fact]
         public async void Convert_units_using_full_name_as_reference()
