@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using UnitConverter.ViewModel;
+using Moq;
 
 namespace UnitConverter.Tests
 {
@@ -15,10 +16,16 @@ namespace UnitConverter.Tests
         public void Ìnitial_state_of_view()
         {
             //Arrange
-            LoadQuantitiesService loadQuantitiesService = new LoadQuantitiesService();
-            LoadUnitsService loadUnitsService = new LoadUnitsService();
-            UnitConverterService unitConverterService = new UnitConverterService();
-            MainViewModel sut = new MainViewModel(loadQuantitiesService, loadUnitsService, unitConverterService);
+            var loadQuantitiesServiceMock = new Mock<ILoadQuantitiesService>();
+            loadQuantitiesServiceMock.Setup(f => f.LoadQuantities())
+                .Returns(Task.FromResult((true, string.Empty, new List<string>() { "Temperature", "Pressure" })));           
+            var loadUnitsServiceMock = new Mock<ILoadUnitsService>();
+            loadUnitsServiceMock.Setup(f => f.LoadUnits("Temperature"))
+                .Returns(Task.FromResult((true, string.Empty, new List<Unit>() { new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine() })));
+            var unitConverterServiceMock = new Mock<IUnitConverterService>();
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.IsAny<double>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(Task.FromResult((true, string.Empty, new Value(0, "°C"))));
+            MainViewModel sut = new MainViewModel(loadQuantitiesServiceMock.Object, loadUnitsServiceMock.Object, unitConverterServiceMock.Object);
 
             //Act
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UnitConverter
 {
-    public class LoadUnitsService
+    public class LoadUnitsService : ILoadUnitsService
     {
         public Task<(bool Success, string Message, List<Unit> Units)> LoadUnits(string quantity)
         {

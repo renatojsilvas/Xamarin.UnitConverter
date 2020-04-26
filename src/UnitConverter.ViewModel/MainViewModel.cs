@@ -6,12 +6,12 @@ namespace UnitConverter.ViewModel
 {
     public class MainViewModel
     {
-        private readonly LoadQuantitiesService loadQuantitiesService;
-        private readonly LoadUnitsService loadUnitsService;
-        private readonly UnitConverterService unitConverterService;
+        private readonly ILoadQuantitiesService loadQuantitiesService;
+        private readonly ILoadUnitsService loadUnitsService;
+        private readonly IUnitConverterService unitConverterService;
 
-        public MainViewModel(LoadQuantitiesService loadQuantitiesService, 
-            LoadUnitsService loadUnitsService, UnitConverterService unitConverterService)
+        public MainViewModel(ILoadQuantitiesService loadQuantitiesService, 
+            ILoadUnitsService loadUnitsService, IUnitConverterService unitConverterService)
         {
             this.loadQuantitiesService = loadQuantitiesService;
             this.loadUnitsService = loadUnitsService;

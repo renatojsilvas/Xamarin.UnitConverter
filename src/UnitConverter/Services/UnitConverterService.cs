@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UnitConverter
 {
-    public class UnitConverterService
+    public class UnitConverterService : IUnitConverterService
     {
         public Task<(bool Success, string Message, Value Value)> ConvertUnit(double value, string source, string destination)
         {
