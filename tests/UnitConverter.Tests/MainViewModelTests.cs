@@ -19,7 +19,6 @@ namespace UnitConverter.Tests
 
             //Act
 
-
             //Assert
             sut.Quantities.Should().HaveCount(2);
             sut.Quantities.Should().ContainInOrder("Temperature", "Pressure");
