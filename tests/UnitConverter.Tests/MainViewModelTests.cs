@@ -19,16 +19,17 @@ namespace UnitConverter.Tests
 
             //Act
 
+
             //Assert
             sut.Quantities.Should().HaveCount(2);
             sut.Quantities.Should().ContainInOrder("Temperature", "Pressure");
             sut.SelectedQuantity.Should().Be("Temperature");
             sut.SourceUnits.Should().HaveCount(4);
-            sut.SourceUnits.Should().ContainInOrder("Celsius", "Fahrenheit", "Kelvin", "Rankine");
+            sut.SourceUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
             sut.DestinationUnits.Should().HaveCount(4);
-            sut.DestinationUnits.Should().ContainInOrder("Celsius", "Fahrenheit", "Kelvin", "Rankine");
-            sut.SourceValue.Should().Be("0 °C");
-            sut.DestinationValue.Should().Be("0 °C");
+            sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
+            sut.SourceValue.Should().Be(new Value("0 °C"));
+            sut.DestinationValue.Should().Be(new Value("0 °C"));
         }
     }
 }

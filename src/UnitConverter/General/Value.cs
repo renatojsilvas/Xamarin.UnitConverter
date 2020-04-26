@@ -33,11 +33,18 @@ namespace UnitConverter
         }
 
         public double Amount { get; private set; }
-        private Unit Unit { get; set; }
+        internal Unit Unit { get; set; }
 
         public string ToString(int significantFigures)
         {
             return $"{Amount.ToString(significantFigures)} {Unit.Symbol}".TrimEnd();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (((Value)obj).Amount == this.Amount) &&
+                   (((Value)obj).Unit.Symbol == this.Unit.Symbol);
+                   
         }
     }
 }
