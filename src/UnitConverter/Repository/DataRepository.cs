@@ -32,10 +32,10 @@ namespace UnitConverter
             return listOfUnits.Select(u => u.Quantity).Distinct().ToList();
         }
 
-        internal static List<Unit> GetUnitsByQuantity(string v)
+        internal static List<Unit> GetUnitsByQuantity(string quantity)
         {
             InitializeRepository();
-            return listOfUnits.Where(u => u.Quantity == v).ToList();
+            return listOfUnits.Where(u => u.Quantity == quantity).ToList();
         }
 
         internal static Unit GetUnitByFullName(string fullName)

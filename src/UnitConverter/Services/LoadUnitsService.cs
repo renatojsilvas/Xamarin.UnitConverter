@@ -8,9 +8,9 @@ namespace UnitConverter
 {
     public class LoadUnitsService
     {
-        public Task<(bool Success, string Message, List<string> Units)> LoadUnits(string quantity)
+        public Task<(bool Success, string Message, List<Unit> Units)> LoadUnits(string quantity)
         {
-            return Task.FromResult((true, string.Empty, DataRepository.GetUnitsByQuantity(quantity).Select(u => u.FullName).ToList()));
+            return Task.FromResult((true, string.Empty, DataRepository.GetUnitsByQuantity(quantity)));
         }
     }
 }
