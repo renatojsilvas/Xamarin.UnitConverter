@@ -6,36 +6,38 @@ namespace UnitConverter.ViewModel
 {
     public class MainViewModel
     {
-        public MainViewModel()
+        private readonly LoadQuantitiesService loadQuantitiesService;
+        private readonly LoadUnitsService loadUnitsService;
+        private readonly UnitConverterService unitConverterService;
+
+        public MainViewModel(LoadQuantitiesService loadQuantitiesService, 
+            LoadUnitsService loadUnitsService, UnitConverterService unitConverterService)
         {
+            this.loadQuantitiesService = loadQuantitiesService;
+            this.loadUnitsService = loadUnitsService;
+            this.unitConverterService = unitConverterService;
             InitializeMainViewModel();
         }
 
         private async void InitializeMainViewModel()
         {
-            LoadUnitsService loadUnitsService = new LoadUnitsService();
-            Quantities = new ObservableCollection<string>();
-            Quantities.Add("Temperature");
-            Quantities.Add("Pressure");
-            SelectedQuantity = "Temperature";
-            SourceUnits = new ObservableCollection<Unit>();
-            SourceUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Celsius"));
-            SourceUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Fahrenheit"));
-            SourceUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Kelvin"));
-            SourceUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Rankine"));
-            DestinationUnits = new ObservableCollection<Unit>();
-            DestinationUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Celsius"));
-            DestinationUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Fahrenheit"));
-            DestinationUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Kelvin"));
-            DestinationUnits.Add((await loadUnitsService.LoadUnits("Temperature")).Units.FirstOrDefault(u => u.FullName == "Rankine"));
-            SourceValue = new Value("0 °C");
-            DestinationValue = new Value("0 °C");
+            Quantities = new ObservableCollection<string>((await loadQuantitiesService.LoadQuantities()).Quantities);
+            SelectedQuantity = Quantities.FirstOrDefault();
+            SourceUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(SelectedQuantity)).Units);
+            DestinationUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(SelectedQuantity)).Units);
+            SelectedSourceUnit = SourceUnits.FirstOrDefault();
+            SelectedDestinationUnit = DestinationUnits.FirstOrDefault();
+            SourceValue = new Value(0, SelectedSourceUnit.FullName);
+            DestinationValue = (await unitConverterService.ConvertUnit(SourceValue.Amount, 
+                SelectedSourceUnit.FullName, SelectedDestinationUnit.FullName)).Value;
         }
 
         public ObservableCollection<string> Quantities { set; get; }
         public string SelectedQuantity { set; get; }
         public ObservableCollection<Unit> SourceUnits { set; get; }
         public ObservableCollection<Unit> DestinationUnits { set; get; }
+        public Unit SelectedSourceUnit { get; set; }
+        public Unit SelectedDestinationUnit { get; set; }
         public Value SourceValue { set; get; }
         public Value DestinationValue { set; get; }
     }
