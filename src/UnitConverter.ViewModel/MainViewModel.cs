@@ -31,10 +31,10 @@ namespace UnitConverter.ViewModel
         {
             Quantities = new ObservableCollection<string>((await loadQuantitiesService.LoadQuantities()).Quantities);
             SelectedQuantity = Quantities.FirstOrDefault();
-            UpdateUnits(SelectedQuantity);
+            await UpdateUnits(SelectedQuantity);
         }
 
-        private async void UpdateUnits(string selectedQuantity)
+        private async Task UpdateUnits(string selectedQuantity)
         {
             SourceUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(selectedQuantity)).Units);
             SelectedSourceUnit = SourceUnits.FirstOrDefault();
@@ -59,7 +59,7 @@ namespace UnitConverter.ViewModel
                 if (selectedQuantity != value)
                 {
                     selectedQuantity = value;
-                    UpdateUnits(selectedQuantity);
+                    _ = UpdateUnits(selectedQuantity);
                     OnPropertyChanged(nameof(SelectedQuantity));
                 }
             }             
