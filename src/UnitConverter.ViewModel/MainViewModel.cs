@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace UnitConverter.ViewModel
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
         private readonly ILoadQuantitiesService loadQuantitiesService;
         private readonly ILoadUnitsService loadUnitsService;
         private readonly IUnitConverterService unitConverterService;
@@ -23,19 +31,43 @@ namespace UnitConverter.ViewModel
         {
             Quantities = new ObservableCollection<string>((await loadQuantitiesService.LoadQuantities()).Quantities);
             SelectedQuantity = Quantities.FirstOrDefault();
-            SourceUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(SelectedQuantity)).Units);
-            DestinationUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(SelectedQuantity)).Units);
+            UpdateUnits(SelectedQuantity);
+        }
+
+        private async void UpdateUnits(string selectedQuantity)
+        {
+            SourceUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(selectedQuantity)).Units);
             SelectedSourceUnit = SourceUnits.FirstOrDefault();
-            SelectedDestinationUnit = DestinationUnits.FirstOrDefault();
             SourceValue = new Value(0, SelectedSourceUnit.FullName);
-            DestinationValue = (await unitConverterService.ConvertUnit(SourceValue.Amount, 
-                SelectedSourceUnit.FullName, SelectedDestinationUnit.FullName)).Value;
+            DestinationUnits = new ObservableCollection<Unit>((await loadUnitsService.LoadUnits(selectedQuantity)).Units);
+            SelectedDestinationUnit = DestinationUnits.FirstOrDefault();
+            DestinationValue = (await unitConverterService.ConvertUnit(SourceValue.Amount, SelectedSourceUnit.FullName,
+                SelectedDestinationUnit.FullName)).Value;
         }
 
         public ObservableCollection<string> Quantities { set; get; }
-        public string SelectedQuantity { set; get; }
+
+        private string selectedQuantity;
+        public string SelectedQuantity 
+        {
+            get
+            {
+                return selectedQuantity;
+            }
+            set
+            {
+                if (selectedQuantity != value)
+                {
+                    selectedQuantity = value;
+                    UpdateUnits(selectedQuantity);
+                    OnPropertyChanged(nameof(SelectedQuantity));
+                }
+            }             
+        }        
+
         public ObservableCollection<Unit> SourceUnits { set; get; }
         public ObservableCollection<Unit> DestinationUnits { set; get; }
+        
         public Unit SelectedSourceUnit { get; set; }
         public Unit SelectedDestinationUnit { get; set; }
         public Value SourceValue { set; get; }
