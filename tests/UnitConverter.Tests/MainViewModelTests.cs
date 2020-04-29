@@ -87,5 +87,47 @@ namespace UnitConverter.Tests
             sut.SourceValue.Should().Be(new Value("0 Pa"));
             sut.DestinationValue.Should().Be(new Value("0 Pa"));
         }
+
+        [Fact]
+        public void Change_source_unit()
+        {
+            //Arrange
+            var loadQuantitiesServiceMock = new Mock<ILoadQuantitiesService>();
+            loadQuantitiesServiceMock.Setup(f => f.LoadQuantities())
+                .Returns(Task.FromResult((true, string.Empty, new List<string>() { "Temperature", "Pressure" })));
+            var loadUnitsServiceMock = new Mock<ILoadUnitsService>();
+            loadUnitsServiceMock.Setup(f => f.LoadUnits(It.Is<string>(i => i == "Temperature")))
+                .Returns(Task.FromResult((true, string.Empty, new List<Unit>() { new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine() })));
+            var unitConverterServiceMock = new Mock<IUnitConverterService>();
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.Is<double>(i => i == 0),
+                It.Is<string>(i => i == "Celsius"), It.Is<string>(i => i == "Celsius")))
+                .Returns(Task.FromResult((true, string.Empty, new Value(0, "°C"))));
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.Is<double>(i => i == 0),
+                It.Is<string>(i => i == "Fahrenheit"), It.Is<string>(i => i == "Celsius")))
+                .Returns(Task.FromResult((true, string.Empty, new Value(-17.778, "°C"))));
+            MainViewModel sut = new MainViewModel(loadQuantitiesServiceMock.Object, loadUnitsServiceMock.Object, unitConverterServiceMock.Object);
+            string property = string.Empty;
+            sut.PropertyChanged += (sender, e) =>
+            {
+                property = e.PropertyName;
+            };
+
+            //Act
+            sut.SelectedQuantity = "Pressure";
+
+            //Assert
+            property.Should().Be("SelectedQuantity");
+            sut.Quantities.Should().HaveCount(2);
+            sut.Quantities.Should().ContainInOrder("Temperature", "Pressure");
+            sut.SelectedQuantity.Should().Be("Pressure");
+            sut.SourceUnits.Should().HaveCount(1);
+            sut.SourceUnits.Should().ContainInOrder(new Pascal());
+            sut.DestinationUnits.Should().HaveCount(1);
+            sut.DestinationUnits.Should().ContainInOrder(new Pascal());
+            sut.SelectedSourceUnit.Should().Be(new Pascal());
+            sut.SelectedDestinationUnit.Should().Be(new Pascal());
+            sut.SourceValue.Should().Be(new Value("0 Pa"));
+            sut.DestinationValue.Should().Be(new Value("0 Pa"));
+        }
     }
 }
