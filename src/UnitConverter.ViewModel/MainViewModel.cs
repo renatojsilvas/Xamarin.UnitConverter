@@ -67,9 +67,52 @@ namespace UnitConverter.ViewModel
 
         public ObservableCollection<Unit> SourceUnits { set; get; }
         public ObservableCollection<Unit> DestinationUnits { set; get; }
-        
-        public Unit SelectedSourceUnit { get; set; }
-        public Unit SelectedDestinationUnit { get; set; }
+
+        private Unit selectedSourceUnit;
+        public Unit SelectedSourceUnit
+        {
+            get
+            {
+                return selectedSourceUnit;
+            }
+            set
+            {
+                if (selectedSourceUnit != value)
+                {
+                    selectedSourceUnit = value;
+                    if (SelectedDestinationUnit != null)
+                        _ = UpdateDestinationValue(selectedSourceUnit, SelectedDestinationUnit);
+                    OnPropertyChanged(nameof(SelectedSourceUnit));
+                }
+            }
+        }
+
+        private async Task UpdateDestinationValue(Unit selectedSourceUnit, Unit selectedDestinationUnit)
+        {
+            SourceValue = new Value(SourceValue.Amount, selectedSourceUnit.FullName);
+            DestinationValue = (await unitConverterService.ConvertUnit(SourceValue.Amount, selectedSourceUnit.FullName,
+                selectedDestinationUnit.FullName)).Value;
+        }
+
+        private Unit selectDestinationUnit;
+        public Unit SelectedDestinationUnit
+        {
+            get
+            {
+                return selectDestinationUnit;
+            }
+            set
+            {
+                if (selectDestinationUnit != value)
+                {
+                    selectDestinationUnit = value;
+                    if (SelectedSourceUnit != null)
+                        _ = UpdateDestinationValue(SelectedSourceUnit, selectDestinationUnit);
+                    OnPropertyChanged(nameof(SelectedDestinationUnit));
+                }
+            }
+        }
+
         public Value SourceValue { set; get; }
         public Value DestinationValue { set; get; }
     }

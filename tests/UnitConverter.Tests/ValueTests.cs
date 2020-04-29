@@ -52,5 +52,19 @@ namespace UnitConverter.Tests
             sut.Amount.Should().Be(1.25);
             sut.ToString(3).Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".").Should().Be("1.25 °C");
         }
+
+        [Fact]
+        public void Create_value_from_string_value_comma()
+        {
+            //Arrange
+            Value sut = new Value("1,25 °C");
+
+            //Act
+
+
+            //Assert
+            sut.Amount.Should().Be(1.25);
+            sut.ToString(3).Replace(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, ".").Should().Be("1.25 °C");
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace UnitConverter
         public Value(string value)
         {
             var aux = value.Split(' ');
-            LoadArguments(double.Parse(aux[0], CultureInfo.InvariantCulture), aux[1]);
+            LoadArguments(double.Parse(aux[0].Replace(',', '.'), CultureInfo.InvariantCulture), aux[1]);
         }
 
         public Value(double amount) 

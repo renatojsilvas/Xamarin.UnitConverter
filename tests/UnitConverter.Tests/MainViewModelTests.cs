@@ -112,21 +112,63 @@ namespace UnitConverter.Tests
             };
 
             //Act
-            sut.SelectedQuantity = "Pressure";
+            sut.SelectedSourceUnit = new Fahrenheit();
 
             //Assert
-            property.Should().Be("SelectedQuantity");
+            property.Should().Be("SelectedSourceUnit");
             sut.Quantities.Should().HaveCount(2);
             sut.Quantities.Should().ContainInOrder("Temperature", "Pressure");
-            sut.SelectedQuantity.Should().Be("Pressure");
-            sut.SourceUnits.Should().HaveCount(1);
-            sut.SourceUnits.Should().ContainInOrder(new Pascal());
-            sut.DestinationUnits.Should().HaveCount(1);
-            sut.DestinationUnits.Should().ContainInOrder(new Pascal());
-            sut.SelectedSourceUnit.Should().Be(new Pascal());
-            sut.SelectedDestinationUnit.Should().Be(new Pascal());
-            sut.SourceValue.Should().Be(new Value("0 Pa"));
-            sut.DestinationValue.Should().Be(new Value("0 Pa"));
+            sut.SelectedQuantity.Should().Be("Temperature");
+            sut.SourceUnits.Should().HaveCount(4);
+            sut.SourceUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
+            sut.DestinationUnits.Should().HaveCount(4);
+            sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
+            sut.SelectedSourceUnit.Should().Be(new Fahrenheit());
+            sut.SelectedDestinationUnit.Should().Be(new Celsius());
+            sut.SourceValue.Should().Be(new Value("0 °F"));
+            sut.DestinationValue.Should().Be(new Value("-17,778 °C"));
+        }
+
+        [Fact]
+        public void Change_destination_unit()
+        {
+            //Arrange
+            var loadQuantitiesServiceMock = new Mock<ILoadQuantitiesService>();
+            loadQuantitiesServiceMock.Setup(f => f.LoadQuantities())
+                .Returns(Task.FromResult((true, string.Empty, new List<string>() { "Temperature", "Pressure" })));
+            var loadUnitsServiceMock = new Mock<ILoadUnitsService>();
+            loadUnitsServiceMock.Setup(f => f.LoadUnits(It.Is<string>(i => i == "Temperature")))
+                .Returns(Task.FromResult((true, string.Empty, new List<Unit>() { new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine() })));
+            var unitConverterServiceMock = new Mock<IUnitConverterService>();
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.Is<double>(i => i == 0),
+                It.Is<string>(i => i == "Celsius"), It.Is<string>(i => i == "Celsius")))
+                .Returns(Task.FromResult((true, string.Empty, new Value(0, "°C"))));
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.Is<double>(i => i == 0),
+                It.Is<string>(i => i == "Celsius"), It.Is<string>(i => i == "Fahrenheit")))
+                .Returns(Task.FromResult((true, string.Empty, new Value(32, "°F"))));
+            MainViewModel sut = new MainViewModel(loadQuantitiesServiceMock.Object, loadUnitsServiceMock.Object, unitConverterServiceMock.Object);
+            string property = string.Empty;
+            sut.PropertyChanged += (sender, e) =>
+            {
+                property = e.PropertyName;
+            };
+
+            //Act
+            sut.SelectedDestinationUnit = new Fahrenheit();
+
+            //Assert
+            property.Should().Be("SelectedDestinationUnit");
+            sut.Quantities.Should().HaveCount(2);
+            sut.Quantities.Should().ContainInOrder("Temperature", "Pressure");
+            sut.SelectedQuantity.Should().Be("Temperature");
+            sut.SourceUnits.Should().HaveCount(4);
+            sut.SourceUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
+            sut.DestinationUnits.Should().HaveCount(4);
+            sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
+            sut.SelectedSourceUnit.Should().Be(new Celsius());
+            sut.SelectedDestinationUnit.Should().Be(new Fahrenheit());
+            sut.SourceValue.Should().Be(new Value("0 °C"));
+            sut.DestinationValue.Should().Be(new Value("32 °F"));
         }
     }
 }
