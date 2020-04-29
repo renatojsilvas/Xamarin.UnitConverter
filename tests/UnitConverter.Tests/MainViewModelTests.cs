@@ -7,7 +7,6 @@ using Xunit;
 using FluentAssertions;
 using UnitConverter.ViewModel;
 using Moq;
-using Castle.Core.Smtp;
 
 namespace UnitConverter.Tests
 {
