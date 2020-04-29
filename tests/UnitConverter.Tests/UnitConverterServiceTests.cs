@@ -11,13 +11,13 @@ namespace UnitConverter.Tests
     public class UnitConverterServiceTests
     {
         [Fact]
-        public async void Convert_units_using_full_name_as_reference()
+        public void Convert_units_using_full_name_as_reference()
         {
             //Arrange
             UnitConverterService sut = new UnitConverterService();
 
             //Act
-            var result = await sut.ConvertUnit(0, "Celsius", "Fahrenheit");
+            var result = sut.ConvertUnit(0, "Celsius", "Fahrenheit");
 
             //Assert
             result.Success.Should().BeTrue();
@@ -26,13 +26,13 @@ namespace UnitConverter.Tests
         }
 
         [Fact]
-        public async void Convert_units_using_symbol_as_reference()
+        public void Convert_units_using_symbol_as_reference()
         {
             //Arrange
             UnitConverterService sut = new UnitConverterService();
 
             //Act
-            var result = await sut.ConvertUnit(0, "°C", "°F");
+            var result = sut.ConvertUnit(0, "°C", "°F");
 
             //Assert
             result.Success.Should().BeTrue();

@@ -7,6 +7,6 @@ namespace UnitConverter
 {
     public interface ILoadQuantitiesService
     {
-        Task<(bool Success, string Message, List<string> Quantities)> LoadQuantities();
+        (bool Success, string Message, List<string> Quantities) LoadQuantities();
     }
 }

@@ -11,13 +11,13 @@ namespace UnitConverter.Tests
     public class LoadUnitsServiceTest
     {
         [Fact]
-        public async void Load_units_by_quantity()
+        public void Load_units_by_quantity()
         {
             //Arrange
             LoadUnitsService sut = new LoadUnitsService();
 
             //Act
-            var result = await sut.LoadUnits("Temperature");
+            var result = sut.LoadUnits("Temperature");
 
             //Assert
             result.Success.Should().BeTrue();

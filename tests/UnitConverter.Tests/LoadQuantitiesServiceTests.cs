@@ -12,13 +12,13 @@ namespace UnitConverter.Tests
     public class LoadQuantitiesServiceTests
     {
         [Fact]
-        public async void Load_quantities()
+        public void Load_quantities()
         {
             //Arrange
             LoadQuantitiesService sut = new LoadQuantitiesService();
 
             //Act
-            var result = await sut.LoadQuantities();
+            var result = sut.LoadQuantities();
 
             //Assert
             result.Success.Should().BeTrue();
