@@ -80,18 +80,15 @@ namespace UnitConverter.ViewModel
                 if (selectedSourceUnit != value)
                 {
                     selectedSourceUnit = value;
-                    if (SelectedDestinationUnit != null)
-                       UpdateDestinationValue(selectedSourceUnit, SelectedDestinationUnit);
+                    if (SelectedDestinationUnit != null && SelectedSourceUnit != null)
+                    {
+                        SourceValue = new Value(SourceValue.Amount, SelectedSourceUnit.FullName);
+                        DestinationValue = (unitConverterService.ConvertUnit(SourceValue.Amount, SelectedSourceUnit.FullName,
+                            SelectedDestinationUnit.FullName)).Value;
+                    }
                     OnPropertyChanged(nameof(SelectedSourceUnit));
                 }
             }
-        }
-
-        private void UpdateDestinationValue(Unit selectedSourceUnit, Unit selectedDestinationUnit)
-        {
-            SourceValue = new Value(SourceValue.Amount, selectedSourceUnit.FullName);
-            DestinationValue = (unitConverterService.ConvertUnit(SourceValue.Amount, selectedSourceUnit.FullName,
-                selectedDestinationUnit.FullName)).Value;
         }
 
         private Unit selectDestinationUnit;
@@ -106,8 +103,12 @@ namespace UnitConverter.ViewModel
                 if (selectDestinationUnit != value)
                 {
                     selectDestinationUnit = value;
-                    if (SelectedSourceUnit != null)
-                        UpdateDestinationValue(SelectedSourceUnit, selectDestinationUnit);
+                    if (SelectedDestinationUnit != null && SelectedSourceUnit != null)
+                    {
+                        SourceValue = new Value(SourceValue.Amount, SelectedSourceUnit.FullName);
+                        DestinationValue = (unitConverterService.ConvertUnit(SourceValue.Amount, SelectedSourceUnit.FullName,
+                            SelectedDestinationUnit.FullName)).Value;
+                    }
                     OnPropertyChanged(nameof(SelectedDestinationUnit));
                 }
             }
@@ -132,6 +133,21 @@ namespace UnitConverter.ViewModel
             }
         }
 
-        public Value DestinationValue { set; get; }
+        private Value destinationValue;
+        public Value DestinationValue
+        {
+            get
+            {
+                return destinationValue;
+            }
+            set
+            {
+                if (destinationValue != value)
+                {
+                    destinationValue = value;
+                    OnPropertyChanged(nameof(DestinationValue));
+                }
+            }
+        }
     }
 }

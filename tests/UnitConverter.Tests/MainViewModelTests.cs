@@ -212,5 +212,36 @@ namespace UnitConverter.Tests
             sut.SourceValue.Should().Be(new Value("20 °C"));
             sut.DestinationValue.Should().Be(new Value("20 °C"));
         }
+
+        [Fact]
+        public void Change_destination_value()
+        {
+            //Arrange
+            var loadQuantitiesServiceMock = new Mock<ILoadQuantitiesService>();
+            loadQuantitiesServiceMock.Setup(f => f.LoadQuantities())
+                .Returns((true, string.Empty, new List<string>() { "Temperature", "Pressure" }));
+            var loadUnitsServiceMock = new Mock<ILoadUnitsService>();
+            loadUnitsServiceMock.Setup(f => f.LoadUnits(It.Is<string>(i => i == "Temperature")))
+                .Returns((true, string.Empty, new List<Unit>() { new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine() }));
+            var unitConverterServiceMock = new Mock<IUnitConverterService>();
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.Is<double>(i => i == 0),
+                It.Is<string>(i => i == "Celsius"), It.Is<string>(i => i == "Celsius")))
+                .Returns((true, string.Empty, new Value(0, "°C")));
+            unitConverterServiceMock.Setup(f => f.ConvertUnit(It.Is<double>(i => i == 20),
+                It.Is<string>(i => i == "Celsius"), It.Is<string>(i => i == "Celsius")))
+                .Returns((true, string.Empty, new Value(20, "°C")));
+            MainViewModel sut = new MainViewModel(loadQuantitiesServiceMock.Object, loadUnitsServiceMock.Object, unitConverterServiceMock.Object);
+            string property = string.Empty;
+            sut.PropertyChanged += (sender, e) =>
+            {
+                property = e.PropertyName;
+            };
+
+            //Act
+            sut.DestinationValue = new Value(20, "°C");
+
+            //Assert
+            property.Should().Be("DestinationValue");
+        }
     }
 }
