@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnitConverter.Pressure;
 using UnitConverter.ViewModel;
 using Xunit;
 using FluentAssertions;

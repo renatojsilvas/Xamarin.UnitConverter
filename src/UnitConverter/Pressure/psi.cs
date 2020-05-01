@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UnitConverter.Pressure
+namespace UnitConverter
 {
     internal class Psi : Unit
     {

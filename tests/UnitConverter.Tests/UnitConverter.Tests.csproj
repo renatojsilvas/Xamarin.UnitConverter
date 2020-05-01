@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Extensions\ExtensionMethodsTests.cs" />
     <Compile Include="Integration\IntegrationTests.cs" />
+    <Compile Include="Model\PressureUnitsTests.cs" />
     <Compile Include="Services\LoadQuantitiesServiceTests.cs" />
     <Compile Include="Services\LoadUnitsServiceTest.cs" />
     <Compile Include="MainViewModel\MainViewModelTests.cs" />
