@@ -37,8 +37,7 @@ namespace UnitConverter.Tests
             mainViewModel.SelectedSourceUnit.Should().Be(new Pascal());
             mainViewModel.SelectedDestinationUnit.Should().Be(new Psi());
             mainViewModel.SourceValue.Should().Be(new Value("100 Pa"));
-            mainViewModel.DestinationValue.Amount.Should().BeApproximately(new Value("0,01450377 Pa").Amount, 1e-8);
-            mainViewModel.DestinationValue.Unit.Symbol.Should().Be("psi"); 
+            mainViewModel.DestinationValue.ToString(7).Should().Be("0,01450377 psi");
         }
     }
 }
