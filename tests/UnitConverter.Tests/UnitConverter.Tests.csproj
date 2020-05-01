@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethodsTests.cs" />
+    <Compile Include="IntegrationTests.cs" />
     <Compile Include="LoadQuantitiesServiceTests.cs" />
     <Compile Include="LoadUnitsServiceTest.cs" />
     <Compile Include="MainViewModelTests.cs" />

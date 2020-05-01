@@ -75,9 +75,10 @@ namespace UnitConverter.Tests
             List<Unit> units = sut.LoadUnitsByQuantity("Pressure");
 
             //Assert
-            units.Should().HaveCount(1);
+            units.Should().HaveCount(2);
             units.Should().AllBeAssignableTo<Unit>();
             units.Should().Contain(u => u.FullName == "Pascal");
+            units.Should().Contain(u => u.FullName == "psi");
         }
     }
 }

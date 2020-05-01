@@ -1,5 +1,6 @@
 ﻿using Math.Functions;
 using Math.Geometry;
+using System;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("UnitConverter.Tests")]
