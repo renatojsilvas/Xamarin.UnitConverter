@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UnitConverter.View.Wpf")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Unit Converter")]
+[assembly: AssemblyDescription("Simple Unit Converter tool for Windows")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UnitConverter.View.Wpf")]
+[assembly: AssemblyCompany("Renato José da Silva")]
+[assembly: AssemblyProduct("Unit Converter")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
