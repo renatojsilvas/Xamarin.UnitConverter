@@ -5,16 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnitConverter.View.Wpf"
         mc:Ignorable="d"
-        Title="{DynamicResource Title}" Height="450" Width="800">
+        Title="Teste" Height="450" Width="800">
     <StackPanel>
-        <ComboBox ItemsSource="{Binding Quantities}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding}"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
     </StackPanel>
 </Window>
