@@ -1,2 +1,2 @@
-# Xamarin.UnitConverter
-Unit converter library for Xamarin
+# Unit Converter
+Unit converter tool for Windows and Xamarin
