@@ -59,14 +59,5 @@ namespace UnitConverter.View.Wpf.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unit Converter.
-        /// </summary>
-        public static string UnitConverter {
-            get {
-                return ResourceManager.GetString("UnitConverter", resourceCulture);
-            }
-        }
     }
 }

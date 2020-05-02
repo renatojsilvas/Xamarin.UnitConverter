@@ -4,10 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnitConverter.View.Wpf"
-        xmlns:locale="clr-namespace:UnitConverter.View.Wpf.Properties"
         mc:Ignorable="d"
-        Title="{x:Static locale:Resources.UnitConverter}" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="{DynamicResource Title}" Height="450" Width="800">
+    <StackPanel>
+        <ComboBox ItemsSource="{Binding Quantities}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </StackPanel>
 </Window>
