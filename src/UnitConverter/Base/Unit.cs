@@ -10,6 +10,7 @@
 
         public override bool Equals(object obj)
         {
+            if (obj.GetType().FullName == "MS.Internal.NamedObject") return false;
             return FullName == ((Unit)obj).FullName;
         }
     }

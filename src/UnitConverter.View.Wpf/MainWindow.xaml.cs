@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UnitConverter.ViewModel;
 
 namespace UnitConverter.View.Wpf
 {
@@ -26,6 +27,14 @@ namespace UnitConverter.View.Wpf
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        public MainViewModel MainViewModel
+        {
+            set
+            {
+                this.DataContext = value;
+            }
         }
     }
 }

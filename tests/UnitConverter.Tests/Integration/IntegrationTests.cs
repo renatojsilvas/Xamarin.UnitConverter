@@ -23,7 +23,7 @@ namespace UnitConverter.Tests
             //Act
             mainViewModel.SelectedQuantity = "Pressure";
             mainViewModel.SelectedDestinationUnit = new Psi();
-            mainViewModel.SourceValue = new Value(100, "Pa");
+            mainViewModel.SourceValue = 100;
 
             //Assert
             mainViewModel.Quantities.Should().HaveCount(2);
@@ -35,8 +35,8 @@ namespace UnitConverter.Tests
             mainViewModel.DestinationUnits.Should().ContainInOrder(new Pascal(), new Psi());
             mainViewModel.SelectedSourceUnit.Should().Be(new Pascal());
             mainViewModel.SelectedDestinationUnit.Should().Be(new Psi());
-            mainViewModel.SourceValue.Should().Be(new Value("100 Pa"));
-            mainViewModel.DestinationValue.ToString(7).Should().Be("0,01450377 psi");
+            mainViewModel.SourceValue.Should().Be(100);
+            mainViewModel.DestinationValue.Should().BeApproximately(0.01450377, 1e-7);
         }
     }
 }

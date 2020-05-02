@@ -39,8 +39,8 @@ namespace UnitConverter.Tests
             sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
             sut.SelectedSourceUnit.Should().Be(new Celsius());
             sut.SelectedDestinationUnit.Should().Be(new Celsius());
-            sut.SourceValue.Should().Be(new Value("0 °C"));
-            sut.DestinationValue.Should().Be(new Value("0 °C"));
+            sut.SourceValue.Should().Be(0);
+            sut.DestinationValue.Should().Be(0);
         }
 
         [Fact]
@@ -83,8 +83,8 @@ namespace UnitConverter.Tests
             sut.DestinationUnits.Should().ContainInOrder(new Pascal());
             sut.SelectedSourceUnit.Should().Be(new Pascal());
             sut.SelectedDestinationUnit.Should().Be(new Pascal());
-            sut.SourceValue.Should().Be(new Value("0 Pa"));
-            sut.DestinationValue.Should().Be(new Value("0 Pa"));
+            sut.SourceValue.Should().Be(0);
+            sut.DestinationValue.Should().Be(0);
         }
 
         [Fact]
@@ -125,8 +125,8 @@ namespace UnitConverter.Tests
             sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
             sut.SelectedSourceUnit.Should().Be(new Fahrenheit());
             sut.SelectedDestinationUnit.Should().Be(new Celsius());
-            sut.SourceValue.Should().Be(new Value("0 °F"));
-            sut.DestinationValue.Should().Be(new Value("-17,778 °C"));
+            sut.SourceValue.Should().Be(0);
+            sut.DestinationValue.Should().Be(-17.778);
         }
 
         [Fact]
@@ -167,8 +167,8 @@ namespace UnitConverter.Tests
             sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
             sut.SelectedSourceUnit.Should().Be(new Celsius());
             sut.SelectedDestinationUnit.Should().Be(new Fahrenheit());
-            sut.SourceValue.Should().Be(new Value("0 °C"));
-            sut.DestinationValue.Should().Be(new Value("32 °F"));
+            sut.SourceValue.Should().Be(0);
+            sut.DestinationValue.Should().Be(32);
         }
 
         [Fact]
@@ -196,7 +196,7 @@ namespace UnitConverter.Tests
             };
 
             //Act
-            sut.SourceValue = new Value(20, "°C");
+            sut.SourceValue = 20;
 
             //Assert
             property.Should().Be("SourceValue");
@@ -209,8 +209,8 @@ namespace UnitConverter.Tests
             sut.DestinationUnits.Should().ContainInOrder(new Celsius(), new Fahrenheit(), new Kelvin(), new Rankine());
             sut.SelectedSourceUnit.Should().Be(new Celsius());
             sut.SelectedDestinationUnit.Should().Be(new Celsius());
-            sut.SourceValue.Should().Be(new Value("20 °C"));
-            sut.DestinationValue.Should().Be(new Value("20 °C"));
+            sut.SourceValue.Should().Be(20);
+            sut.DestinationValue.Should().Be(20);
         }
 
         [Fact]
@@ -238,7 +238,7 @@ namespace UnitConverter.Tests
             };
 
             //Act
-            sut.DestinationValue = new Value(20, "°C");
+            sut.DestinationValue = 20;
 
             //Assert
             property.Should().Be("DestinationValue");

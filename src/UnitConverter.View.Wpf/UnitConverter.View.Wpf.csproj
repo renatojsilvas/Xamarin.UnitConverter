@@ -94,5 +94,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnitConverter.ViewModel\UnitConverter.ViewModel.csproj">
+      <Project>{79a05d51-70f6-4a4d-b520-eac1a9edbfa4}</Project>
+      <Name>UnitConverter.ViewModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnitConverter\UnitConverter.csproj">
+      <Project>{39a1a0ad-1ceb-4634-bed7-e516f36f76b6}</Project>
+      <Name>UnitConverter</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

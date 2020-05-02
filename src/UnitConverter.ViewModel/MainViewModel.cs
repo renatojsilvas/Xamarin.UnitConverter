@@ -29,20 +29,30 @@ namespace UnitConverter.ViewModel
 
         private void InitializeMainViewModel()
         {
+            SourceUnits = new ObservableCollection<Unit>();
+            DestinationUnits = new ObservableCollection<Unit>();
             Quantities = new ObservableCollection<string>((loadQuantitiesService.LoadQuantities()).Quantities);
-            SelectedQuantity = Quantities.FirstOrDefault();
+            SelectedQuantity = Quantities.FirstOrDefault();            
             UpdateUnits(SelectedQuantity);
         }
 
         private void UpdateUnits(string selectedQuantity)
         {
-            SourceUnits = new ObservableCollection<Unit>((loadUnitsService.LoadUnits(selectedQuantity)).Units);
+            SourceUnits.Clear();
+            foreach (var unit in (loadUnitsService.LoadUnits(selectedQuantity)).Units)
+            {
+                SourceUnits.Add(unit);
+            }
             SelectedSourceUnit = SourceUnits.FirstOrDefault();
-            SourceValue = new Value(0, SelectedSourceUnit.FullName);
-            DestinationUnits = new ObservableCollection<Unit>((loadUnitsService.LoadUnits(selectedQuantity)).Units);
+            SourceValue = 0;
+            DestinationUnits.Clear();
+            foreach (var unit in (loadUnitsService.LoadUnits(selectedQuantity)).Units)
+            {
+                DestinationUnits.Add(unit);
+            }
             SelectedDestinationUnit = DestinationUnits.FirstOrDefault();
-            DestinationValue = (unitConverterService.ConvertUnit(SourceValue.Amount, SelectedSourceUnit.FullName,
-                SelectedDestinationUnit.FullName)).Value;
+            DestinationValue = (unitConverterService.ConvertUnit(SourceValue, SelectedSourceUnit.FullName,
+                SelectedDestinationUnit.FullName)).Value.Amount;
         }
 
         public ObservableCollection<string> Quantities { set; get; }
@@ -80,11 +90,11 @@ namespace UnitConverter.ViewModel
                 if (selectedSourceUnit != value)
                 {
                     selectedSourceUnit = value;
-                    if (SelectedDestinationUnit != null && SelectedSourceUnit != null)
+                    if (SelectedDestinationUnit != null && SelectedSourceUnit != null && SelectedDestinationUnit.Quantity == SelectedSourceUnit.Quantity)
                     {
-                        SourceValue = new Value(SourceValue.Amount, SelectedSourceUnit.FullName);
-                        DestinationValue = (unitConverterService.ConvertUnit(SourceValue.Amount, SelectedSourceUnit.FullName,
-                            SelectedDestinationUnit.FullName)).Value;
+                        SourceValue = new Value(SourceValue, SelectedSourceUnit.FullName).Amount;
+                        DestinationValue = (unitConverterService.ConvertUnit(SourceValue, SelectedSourceUnit.FullName,
+                            SelectedDestinationUnit.FullName)).Value.Amount;
                     }
                     OnPropertyChanged(nameof(SelectedSourceUnit));
                 }
@@ -105,17 +115,17 @@ namespace UnitConverter.ViewModel
                     selectDestinationUnit = value;
                     if (SelectedDestinationUnit != null && SelectedSourceUnit != null)
                     {
-                        SourceValue = new Value(SourceValue.Amount, SelectedSourceUnit.FullName);
-                        DestinationValue = (unitConverterService.ConvertUnit(SourceValue.Amount, SelectedSourceUnit.FullName,
-                            SelectedDestinationUnit.FullName)).Value;
+                        SourceValue = new Value(SourceValue, SelectedSourceUnit.FullName).Amount;
+                        DestinationValue = (unitConverterService.ConvertUnit(SourceValue, SelectedSourceUnit.FullName,
+                            SelectedDestinationUnit.FullName)).Value.Amount;
                     }
                     OnPropertyChanged(nameof(SelectedDestinationUnit));
                 }
             }
         }
 
-        private Value sourceValue;
-        public Value SourceValue
+        private double sourceValue;
+        public double SourceValue
         {
             get
             {
@@ -127,14 +137,14 @@ namespace UnitConverter.ViewModel
                 {
                     sourceValue = value;
                     if (SelectedSourceUnit != null && SelectedDestinationUnit != null)
-                        DestinationValue = unitConverterService.ConvertUnit(sourceValue.Amount, SelectedSourceUnit.FullName, SelectedDestinationUnit.FullName).Value;
+                        DestinationValue = unitConverterService.ConvertUnit(sourceValue, SelectedSourceUnit.FullName, SelectedDestinationUnit.FullName).Value.Amount;
                     OnPropertyChanged(nameof(SourceValue));
                 }
             }
         }
 
-        private Value destinationValue;
-        public Value DestinationValue
+        private double destinationValue;
+        public double DestinationValue
         {
             get
             {

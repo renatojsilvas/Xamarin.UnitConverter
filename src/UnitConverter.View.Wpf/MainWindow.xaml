@@ -5,7 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnitConverter.View.Wpf"
         mc:Ignorable="d"
-        Title="Teste" Height="450" Width="800">
-    <StackPanel>
-    </StackPanel>
+        Title="UnitConverter" Height="450" Width="800"
+        DataContext="Main">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Quantity:"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Quantities}" SelectedItem="{Binding SelectedQuantity}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Source Unit:"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Destination Unit:"/>
+        <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SourceUnits}" SelectedValue="{Binding SelectedSourceUnit}" DisplayMemberPath="FullName"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding DestinationUnits}" SelectedValue="{Binding SelectedDestinationUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="FullName"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Source Value:"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Destination Value:"/>
+        <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding SourceValue, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding DestinationValue, UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
 </Window>

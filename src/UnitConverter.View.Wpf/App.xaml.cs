@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using UnitConverter.ViewModel;
 
 namespace UnitConverter.View.Wpf
 {
@@ -16,10 +17,16 @@ namespace UnitConverter.View.Wpf
     {
         public App()
         {
-            MainWindow window = new MainWindow();
-            window.Show();
-        }
+            System.Windows.FrameworkCompatibilityPreferences
+              .KeepTextBoxDisplaySynchronizedWithTextProperty = false;
 
-       
+            ILoadQuantitiesService loadQuantitiesService = new LoadQuantitiesService();
+            ILoadUnitsService loadUnitsService = new LoadUnitsService();
+            IUnitConverterService unitConverterService = new UnitConverterService();
+            MainViewModel mainViewModel = new MainViewModel(loadQuantitiesService, loadUnitsService, unitConverterService);
+            MainWindow window = new MainWindow();
+            window.MainViewModel = mainViewModel;
+            window.Show();
+        }       
     }
 }
