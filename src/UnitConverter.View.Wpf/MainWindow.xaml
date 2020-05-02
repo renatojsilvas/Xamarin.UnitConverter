@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnitConverter.View.Wpf"
         mc:Ignorable="d"
-        Title="UnitConverter" Height="450" Width="800"
-        DataContext="Main">
+        Title="Unit Converter" Height="170" Width="300"
+        Icon="icon.ico"
+        DataContext="Main" WindowStartupLocation="CenterScreen" SourceInitialized="Window_SourceInitialized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -18,16 +19,17 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Quantity:"/>
-        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Quantities}" SelectedItem="{Binding SelectedQuantity}"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Source Unit:"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="Destination Unit:"/>
-        <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding SourceUnits}" SelectedValue="{Binding SelectedSourceUnit}" DisplayMemberPath="FullName"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding DestinationUnits}" SelectedValue="{Binding SelectedDestinationUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="FullName"/>
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Source Value:"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="Destination Value:"/>
-        <TextBox Grid.Row="4" Grid.Column="0" Text="{Binding SourceValue, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding DestinationValue, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Margin="5 5 5 0" Grid.Row="0" Grid.Column="0" Text="Quantity:"/>
+        <ComboBox Margin="5 0 5 0" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Quantities}" SelectedItem="{Binding SelectedQuantity}"/>
+        <TextBlock Margin="5 0 5 0" Grid.Row="2" Grid.Column="0" Text="Source Unit:"/>
+        <TextBlock Margin="5 0 5 0" Grid.Row="2" Grid.Column="1" Text="Destination Unit:"/>
+        <ComboBox Margin="5 0 5 0" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding SourceUnits}" SelectedValue="{Binding SelectedSourceUnit}" DisplayMemberPath="FullName"/>
+        <ComboBox Margin="5 0 5 0" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding DestinationUnits}" SelectedValue="{Binding SelectedDestinationUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="FullName"/>
+        <TextBlock Margin="5 0 5 0" Grid.Row="4" Grid.Column="0" Text="Source Value:"/>
+        <TextBlock Margin="5 0 5 0" Grid.Row="4" Grid.Column="1" Text="Destination Value:"/>
+        <TextBox Margin="5 0 5 0" Grid.Row="5" Grid.Column="0" Text="{Binding SourceValue, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Margin="5 0 5 0" Grid.Row="5" Grid.Column="1" Text="{Binding DestinationValue, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
     </Grid>
 </Window>
