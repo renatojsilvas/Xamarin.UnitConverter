@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:i="clr-namespace:UnitConverter.View.Xamarin"
+             x:Class="UnitConverter.View.Xamarin.MainPage">
+
+    <ContentPage.Resources>
+        <i:DoubleConverter x:Key="doubleConverter"/>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Label Margin="10" Text="Unit Converter" 
+           HorizontalOptions="Center"
+           VerticalOptions="Start" FontSize="Medium" />
+        <Label Margin="10" Text="Select Quantity" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+        <Picker ItemsSource="{Binding Quantities}" SelectedItem="{Binding SelectedQuantity}"/>
+        <Label Margin="10" Text="Select Source Unit" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+        <Picker ItemsSource="{Binding SourceUnits}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedSourceUnit}"/>
+        <Label Margin="10" Text="Select Destination Unit" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+        <Picker ItemsSource="{Binding DestinationUnits}" ItemDisplayBinding="{Binding FullName}" SelectedItem="{Binding SelectedDestinationUnit}"/>
+        <Label Margin="10" Text="Source Value" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+        <Entry Margin="10" Text="{Binding SourceValue, Converter={StaticResource doubleConverter}}" 
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Start"
+           Keyboard="Numeric"/>
+        <Label Margin="10" Text="Destination Value" 
+           HorizontalOptions="Start"
+           VerticalOptions="Start" />
+        <Label Margin="10" Text="{Binding DestinationValue}" 
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Start"/>
+    </StackLayout>
+
+</ContentPage>
